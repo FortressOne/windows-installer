@@ -27,6 +27,5 @@ section ""
   setoutpath $instdir
 
   inetc::get https://github.com/ezquake/ezquake-source/releases/download/v3.0/ezquake_win32_3.0-full.zip $EXEDIR\ezquake_win32_3.0-full.zip
-
-  CopyFiles $EXEDIR\ezquake_win32_3.0-full.zip $INSTDIR/ezquake_win32_3.0-full.zip
+  nsisunz::Unzip $EXEDIR\ezquake_win32_3.0-full.zip $INSTDIR
 sectionend
