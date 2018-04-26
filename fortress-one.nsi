@@ -1,4 +1,7 @@
 ; fortress-one.nsi
+; compile with NSIS
+; plugins:
+;   inetc, nsisunz
 ;--------------------------------
 
 ; The name of the installer
@@ -27,5 +30,11 @@ section ""
   setoutpath $instdir
 
   inetc::get https://github.com/ezquake/ezquake-source/releases/download/v3.0/ezquake_win32_3.0-full.zip $EXEDIR\ezquake_win32_3.0-full.zip
+  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/paks.zip $EXEDIR\paks.zip
+  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/fortress-one-cfg.zip $EXEDIR\fortress-one-cfg.zip
+  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/fortress-one-gfx.zip $EXEDIR\fortress-one-gfx.zip
   nsisunz::Unzip $EXEDIR\ezquake_win32_3.0-full.zip $INSTDIR
+  nsisunz::Unzip $EXEDIR\paks.zip $INSTDIR
+  nsisunz::Unzip $EXEDIR\fortress-one-cfg.zip $INSTDIR
+  nsisunz::Unzip $EXEDIR\fortress-one-gfx.zip $INSTDIR
 sectionend
