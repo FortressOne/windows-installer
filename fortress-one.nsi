@@ -58,5 +58,5 @@ section ""
   RMDir /r "$INSTDIR\fortress-one-cfgs-master"
 
   ; create shortcut
-  CreateShortCut "$DESKTOP\FortressOne.lnk" "$INSTDIR\ezquake.exe" "-game fortress" "$INSTDIR\fortress-one.ico"
+  CreateShortCut "$DESKTOP\FortressOne.lnk" "$INSTDIR\ezquake.exe" "" "$INSTDIR\fortress-one.ico"
 sectionend
