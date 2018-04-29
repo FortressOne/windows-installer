@@ -27,14 +27,36 @@ Page instfiles
 
 ; The stuff to install
 section ""
-  setoutpath $instdir
+  setoutpath $INSTDIR
 
+  ; Copy icon
+  File fortress-one.ico
+
+  ; get ezQuake 3.0
   inetc::get https://github.com/ezquake/ezquake-source/releases/download/v3.0/ezquake_win32_3.0-full.zip $EXEDIR\ezquake_win32_3.0-full.zip
-  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/paks.zip $EXEDIR\paks.zip
-  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/fortress-one-cfg.zip $EXEDIR\fortress-one-cfg.zip
-  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/fortress-one-gfx.zip $EXEDIR\fortress-one-gfx.zip
   nsisunz::Unzip $EXEDIR\ezquake_win32_3.0-full.zip $INSTDIR
-  nsisunz::Unzip $EXEDIR\paks.zip $INSTDIR
-  nsisunz::Unzip $EXEDIR\fortress-one-cfg.zip $INSTDIR
+
+  ; get ezQuake 3.1 daily
+  inetc::get http://uttergrottan.localghost.net/ezquake/dev/nightlybuilds/win32/2018-04-29-41575f7-ezquake.7z $EXEDIR\2018-04-29-41575f7-ezquake.7z
+  Nsis7z::Extract $EXEDIR\2018-04-29-41575f7-ezquake.7z
+  Delete $INSTDIR\ezquake.exe
+  Rename $INSTDIR\ezquake-41575f7.exe $INSTDIR\ezquake.exe
+
+  ; get gfx files
+  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/fortress-one-gfx.zip $EXEDIR\fortress-one-gfx.zip
   nsisunz::Unzip $EXEDIR\fortress-one-gfx.zip $INSTDIR
+
+  ; get paks
+  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/paks.zip $EXEDIR\paks.zip
+  nsisunz::Unzip $EXEDIR\paks.zip $INSTDIR
+
+  ; get minimum cfgs
+  inetc::get https://github.com/drzel/fortress-one-cfgs/archive/master.zip $EXEDIR\fortress-one-cfgs-master.zip
+  nsisunz::Unzip $EXEDIR\fortress-one-cfgs-master.zip $INSTDIR
+  Rename $INSTDIR\fortress-one-cfgs-master\fortress\config.cfg $INSTDIR\fortress\config.cfg
+  Rename $INSTDIR\fortress-one-cfgs-master\fortress\bindings.cfg $INSTDIR\fortress\bindings.cfg
+  RMDir /r "$INSTDIR\fortress-one-cfgs-master"
+
+  ; create shortcut
+  CreateShortCut "$DESKTOP\FortressOne.lnk" "$INSTDIR\ezquake.exe" "-game fortress" "$INSTDIR\fortress-one.ico"
 sectionend
