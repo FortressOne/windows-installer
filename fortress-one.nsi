@@ -8,7 +8,7 @@
 Name "FortressOne"
 
 ; The file to write
-OutFile "fortress-one-0.1.0-setup.exe"
+OutFile "fortress-one-0.1.1-setup.exe"
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\FortressOne
@@ -58,5 +58,5 @@ section ""
   RMDir /r "$INSTDIR\fortress-one-cfgs-master"
 
   ; create shortcut
-  CreateShortCut "$DESKTOP\FortressOne.lnk" "$INSTDIR\ezquake.exe" "" "$INSTDIR\fortress-one.ico"
+  CreateShortCut "$DESKTOP\FortressOne.lnk" "$INSTDIR\ezquake.exe" "-game fortress +exec config.cfg" "$INSTDIR\fortress-one.ico"
 sectionend
