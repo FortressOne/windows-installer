@@ -1,36 +1,42 @@
-; fortress-one.nsi
-; compile with NSIS
-; plugins:
-;   inetc, nsisunz
-;--------------------------------
+!define APPNAME "FortressOne"
+!define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
+!define VERSIONMAJOR 0
+!define VERSIONMINOR 1
+!define VERSIONBUILD 2
 
-; The name of the installer
-Name "FortressOne"
+RequestExecutionLevel admin
 
-; The file to write
-OutFile "fortress-one-0.1.1-setup.exe"
+InstallDir "$PROGRAMFILES\${APPNAME}"
 
-; The default installation directory
-InstallDir $PROGRAMFILES\FortressOne
+Name "${APPNAME}"
+Icon "logo.ico"
+outFile "fortress-one-installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.exe"
 
-; Request application privileges for Windows Vista
-RequestExecutionLevel highest
+!include LogicLib.nsh
 
-;--------------------------------
-
-; Pages
-
-Page directory
+page directory
 Page instfiles
 
-;--------------------------------
+!macro VerifyUserIsAdmin
+  UserInfo::GetAccountType
+  pop $0
+  ${If} $0 != "admin" ;Require admin rights on NT4+
+    messageBox mb_iconstop "Administrator rights required!"
+    setErrorLevel 740 ;ERROR_ELEVATION_REQUIRED
+    quit
+  ${EndIf}
+!macroend
 
-; The stuff to install
-section ""
-  setoutpath $INSTDIR
+function .onInit
+  setShellVarContext all
+  !insertmacro VerifyUserIsAdmin
+functionEnd
+
+section "install"
+  setOutPath $INSTDIR
 
   ; Copy icon
-  File fortress-one.ico
+  File logo.ico
 
   ; get ezQuake 3.0
   inetc::get https://github.com/ezquake/ezquake-source/releases/download/v3.0/ezquake_win32_3.0-full.zip $EXEDIR\ezquake_win32_3.0-full.zip
@@ -57,6 +63,47 @@ section ""
   Rename $INSTDIR\fortress-one-cfgs-master\fortress\bindings.cfg $INSTDIR\fortress\bindings.cfg
   RMDir /r "$INSTDIR\fortress-one-cfgs-master"
 
-  ; create shortcut
-  CreateShortCut "$DESKTOP\FortressOne.lnk" "$INSTDIR\ezquake.exe" "-game fortress +exec config.cfg" "$INSTDIR\fortress-one.ico"
-sectionend
+  # Uninstaller - See function un.onInit and section "uninstall" for configuration
+  writeUninstaller "$INSTDIR\uninstall.exe"
+
+  # Start Menu
+  createDirectory "$SMPROGRAMS\${APPNAME}"
+  CreateShortCut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress +exec config.cfg" "$INSTDIR\logo.ico"
+  CreateShortCut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress +exec config.cfg" "$INSTDIR\logo.ico"
+
+  # Registry information for add/remove programs
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "QuietUninstallString" "$\"$INSTDIR\uninstall.exe$\" /S"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "InstallLocation" "$\"$INSTDIR$\""
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayIcon" "$\"$INSTDIR\logo.ico$\""
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayVersion" "$\"${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}$\""
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "VersionMajor" ${VERSIONMAJOR}
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "VersionMinor" ${VERSIONMINOR}
+
+  # There is no option for modifying or repairing the install
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "NoModify" 1
+  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "NoRepair" 1
+sectionEnd
+
+# Uninstaller
+
+function un.onInit
+  SetShellVarContext all
+
+  #Verify the uninstaller - last chance to back out
+  MessageBox MB_OKCANCEL "Permanantly remove ${APPNAME}?" IDOK next
+  Abort
+  next:
+  !insertmacro VerifyUserIsAdmin
+functionEnd
+
+section "uninstall"
+  delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
+  delete "$DESKTOP\${APPNAME}\${APPNAME}.lnk"
+  rmDir "$SMPROGRAMS\${APPNAME}"
+
+  rmdir /r $INSTDIR
+
+  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
+sectionEnd
