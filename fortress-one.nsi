@@ -43,10 +43,10 @@ section "install"
   nsisunz::Unzip $EXEDIR\ezquake_win32_3.0-full.zip $INSTDIR
 
   ; get ezQuake 3.1 daily
-  inetc::get http://uttergrottan.localghost.net/ezquake/dev/nightlybuilds/win32/2018-04-29-41575f7-ezquake.7z $EXEDIR\2018-04-29-41575f7-ezquake.7z
-  Nsis7z::Extract $EXEDIR\2018-04-29-41575f7-ezquake.7z
+  inetc::get http://uttergrottan.localghost.net/ezquake/dev/nightlybuilds/win32/2018-05-09-236a8d6-ezquake.7z $EXEDIR\2018-05-09-236a8d6-ezquake.7z
+  Nsis7z::Extract $EXEDIR\2018-05-09-236a8d6-ezquake.7z
   Delete $INSTDIR\ezquake.exe
-  Rename $INSTDIR\ezquake-41575f7.exe $INSTDIR\ezquake.exe
+  Rename $INSTDIR\ezquake-236a8d6.exe $INSTDIR\ezquake.exe
 
   ; get gfx files
   inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/fortress-one-gfx.zip $EXEDIR\fortress-one-gfx.zip
