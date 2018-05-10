@@ -2,7 +2,7 @@
 !define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
 !define VERSIONMAJOR 0
 !define VERSIONMINOR 1
-!define VERSIONBUILD 2
+!define VERSIONBUILD 3
 
 RequestExecutionLevel admin
 
@@ -59,8 +59,10 @@ section "install"
   ; get minimum cfgs
   inetc::get https://github.com/drzel/fortress-one-cfgs/archive/master.zip $EXEDIR\fortress-one-cfgs-master.zip
   nsisunz::Unzip $EXEDIR\fortress-one-cfgs-master.zip $INSTDIR
-  Rename $INSTDIR\fortress-one-cfgs-master\fortress\config.cfg $INSTDIR\fortress\config.cfg
+  Rename $INSTDIR\fortress-one-cfgs-master\fortress\autoexec.cfg $INSTDIR\fortress\autoexec.cfg
   Rename $INSTDIR\fortress-one-cfgs-master\fortress\bindings.cfg $INSTDIR\fortress\bindings.cfg
+  Rename $INSTDIR\fortress-one-cfgs-master\fortress\gfx_preset.cfg $INSTDIR\fortress\gfx_preset.cfg
+  Rename $INSTDIR\fortress-one-cfgs-master\fortress\config.cfg $INSTDIR\fortress\config.cfg
   RMDir /r "$INSTDIR\fortress-one-cfgs-master"
 
   # Uninstaller - See function un.onInit and section "uninstall" for configuration
@@ -68,7 +70,7 @@ section "install"
 
   # Start Menu
   createDirectory "$SMPROGRAMS\${APPNAME}"
-  CreateShortCut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress +exec config.cfg" "$INSTDIR\logo.ico"
+  CreateShortCut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress" "$INSTDIR\logo.ico"
   CreateShortCut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress +exec config.cfg" "$INSTDIR\logo.ico"
 
   # Registry information for add/remove programs
@@ -100,7 +102,7 @@ functionEnd
 
 section "uninstall"
   delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
-  delete "$DESKTOP\${APPNAME}\${APPNAME}.lnk"
+  delete "$DESKTOP\${APPNAME}.lnk"
   rmDir "$SMPROGRAMS\${APPNAME}"
 
   rmdir /r $INSTDIR
