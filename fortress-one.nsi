@@ -1,4 +1,5 @@
 !define APPNAME "FortressOne"
+!define ORGNAME "FortressOne"
 !define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
 !define VERSIONMAJOR 0
 !define VERSIONMINOR 1
@@ -69,9 +70,9 @@ section "install"
   writeUninstaller "$INSTDIR\uninstall.exe"
 
   # Start Menu
-  createDirectory "$SMPROGRAMS\${APPNAME}"
-  CreateShortCut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress" "$INSTDIR\logo.ico"
-  CreateShortCut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress +exec config.cfg" "$INSTDIR\logo.ico"
+  createDirectory "$SMPROGRAMS\${ORGNAME}"
+  CreateShortCut "$SMPROGRAMS\${ORGNAME}\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress" "$INSTDIR\logo.ico"
+  CreateShortCut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress" "$INSTDIR\logo.ico"
 
   # Registry information for add/remove programs
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
@@ -79,6 +80,7 @@ section "install"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "QuietUninstallString" "$\"$INSTDIR\uninstall.exe$\" /S"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "InstallLocation" "$\"$INSTDIR$\""
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayIcon" "$\"$INSTDIR\logo.ico$\""
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "Publisher" "$\"${ORGNAME}$\""
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayVersion" "$\"${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}$\""
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "VersionMajor" ${VERSIONMAJOR}
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "VersionMinor" ${VERSIONMINOR}
@@ -95,13 +97,13 @@ function un.onInit
 
   #Verify the uninstaller - last chance to back out
   MessageBox MB_OKCANCEL "Permanantly remove ${APPNAME}?" IDOK next
-  Abort
+    Abort
   next:
   !insertmacro VerifyUserIsAdmin
 functionEnd
 
 section "uninstall"
-  delete "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk"
+  delete "$SMPROGRAMS\${ORGNAME}\${APPNAME}.lnk"
   delete "$DESKTOP\${APPNAME}.lnk"
   rmDir "$SMPROGRAMS\${APPNAME}"
 
