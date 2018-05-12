@@ -60,10 +60,17 @@ section "install"
   ; get minimum cfgs
   inetc::get https://github.com/drzel/fortress-one-cfgs/archive/master.zip $EXEDIR\fortress-one-cfgs-master.zip
   nsisunz::Unzip $EXEDIR\fortress-one-cfgs-master.zip $INSTDIR
+
   Rename $INSTDIR\fortress-one-cfgs-master\fortress\autoexec.cfg $INSTDIR\fortress\autoexec.cfg
   Rename $INSTDIR\fortress-one-cfgs-master\fortress\bindings.cfg $INSTDIR\fortress\bindings.cfg
-  Rename $INSTDIR\fortress-one-cfgs-master\fortress\gfx_preset.cfg $INSTDIR\fortress\gfx_preset.cfg
   Rename $INSTDIR\fortress-one-cfgs-master\fortress\config.cfg $INSTDIR\fortress\config.cfg
+
+  createDirectory $INSTDIR\fortress\cfg
+  Rename $INSTDIR\fortress-one-cfgs-master\fortress\cfg\gfx_gl_eyecandy.cfg $INSTDIR\fortress\cfg\gfx_gl_eyecandy.cfg 
+  Rename $INSTDIR\fortress-one-cfgs-master\fortress\cfg\gfx_gl_faithful.cfg $INSTDIR\fortress\cfg\gfx_gl_faithful.cfg 
+  Rename $INSTDIR\fortress-one-cfgs-master\fortress\cfg\gfx_gl_fast.cfg $INSTDIR\fortress\cfg\gfx_gl_fast.cfg 
+  Rename $INSTDIR\fortress-one-cfgs-master\fortress\cfg\gfx_gl_higheyecandy.cfg $INSTDIR\fortress\cfg\gfx_gl_higheyecandy.cfg 
+
   RMDir /r "$INSTDIR\fortress-one-cfgs-master"
 
   # Uninstaller - See function un.onInit and section "uninstall" for configuration
