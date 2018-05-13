@@ -3,7 +3,7 @@
 !define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
 !define VERSIONMAJOR 0
 !define VERSIONMINOR 1
-!define VERSIONBUILD 3
+!define VERSIONBUILD 4
 
 RequestExecutionLevel admin
 
