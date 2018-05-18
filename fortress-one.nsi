@@ -3,7 +3,7 @@
 !define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
 !define VERSIONMAJOR 0
 !define VERSIONMINOR 1
-!define VERSIONBUILD 5
+!define VERSIONBUILD 6
 
 RequestExecutionLevel admin
 
@@ -77,8 +77,7 @@ section "install"
   writeUninstaller "$INSTDIR\uninstall.exe"
 
   # Start Menu
-  createDirectory "$SMPROGRAMS\${ORGNAME}"
-  CreateShortCut "$SMPROGRAMS\${ORGNAME}\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress" "$INSTDIR\logo.ico"
+  CreateShortCut "$SMPROGRAMS\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress" "$INSTDIR\logo.ico"
   CreateShortCut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress" "$INSTDIR\logo.ico"
 
   # Registry information for add/remove programs
@@ -110,9 +109,8 @@ function un.onInit
 functionEnd
 
 section "uninstall"
-  delete "$SMPROGRAMS\${ORGNAME}\${APPNAME}.lnk"
+  delete "$SMPROGRAMS\${APPNAME}.lnk"
   delete "$DESKTOP\${APPNAME}.lnk"
-  rmDir "$SMPROGRAMS\${APPNAME}"
 
   rmdir /r $INSTDIR
 
