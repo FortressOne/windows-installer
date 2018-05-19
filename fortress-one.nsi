@@ -3,7 +3,7 @@
 !define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
 !define VERSIONMAJOR 0
 !define VERSIONMINOR 1
-!define VERSIONBUILD 6
+!define VERSIONBUILD 7
 
 RequestExecutionLevel admin
 
@@ -44,10 +44,10 @@ section "install"
   nsisunz::Unzip $EXEDIR\ezquake_win32_3.0-full.zip $INSTDIR
 
   ; get ezQuake 3.1 daily
-  inetc::get http://uttergrottan.localghost.net/ezquake/dev/nightlybuilds/win32/2018-05-13-57a36ce-ezquake.7z $EXEDIR\2018-05-09-57a36ce-ezquake.7z
-  Nsis7z::Extract $EXEDIR\2018-05-09-57a36ce-ezquake.7z
+  inetc::get http://uttergrottan.localghost.net/ezquake/dev/nightlybuilds/win32/2018-05-19-7569279-ezquake.7z $EXEDIR\2018-05-19-7569279-ezquake.7z
+  Nsis7z::Extract $EXEDIR\2018-05-19-7569279-ezquake.7z
   Delete $INSTDIR\ezquake.exe
-  Rename $INSTDIR\ezquake-57a36ce.exe $INSTDIR\ezquake.exe
+  Rename $INSTDIR\ezquake-7569279.exe $INSTDIR\ezquake.exe
 
   ; get gfx files
   inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/fortress-one-gfx.zip $EXEDIR\fortress-one-gfx.zip
