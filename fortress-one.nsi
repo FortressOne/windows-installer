@@ -58,20 +58,24 @@ section "install"
   nsisunz::Unzip $EXEDIR\paks.zip $INSTDIR
 
   ; get minimum cfgs
-  inetc::get https://github.com/drzel/fortress-one-cfgs/archive/master.zip $EXEDIR\fortress-one-cfgs-master.zip
-  nsisunz::Unzip $EXEDIR\fortress-one-cfgs-master.zip $INSTDIR
+  inetc::get https://github.com/drzel/fortress-one-cfgs/archive/master.zip $TEMP\fortress-one-cfgs-master.zip
+  nsisunz::Unzip $TEMP\fortress-one-cfgs-master.zip $TEMP
 
-  Rename $INSTDIR\fortress-one-cfgs-master\fortress\autoexec.cfg $INSTDIR\fortress\autoexec.cfg
-  Rename $INSTDIR\fortress-one-cfgs-master\fortress\bindings.cfg $INSTDIR\fortress\bindings.cfg
-  Rename $INSTDIR\fortress-one-cfgs-master\fortress\config.cfg $INSTDIR\fortress\config.cfg
+  Rename $TEMP\fortress-one-cfgs-master\fortress\autoexec.cfg $INSTDIR\fortress\autoexec.cfg
 
   createDirectory $INSTDIR\fortress\cfg
-  Rename $INSTDIR\fortress-one-cfgs-master\fortress\cfg\gfx_gl_eyecandy.cfg $INSTDIR\fortress\cfg\gfx_gl_eyecandy.cfg 
-  Rename $INSTDIR\fortress-one-cfgs-master\fortress\cfg\gfx_gl_faithful.cfg $INSTDIR\fortress\cfg\gfx_gl_faithful.cfg 
-  Rename $INSTDIR\fortress-one-cfgs-master\fortress\cfg\gfx_gl_fast.cfg $INSTDIR\fortress\cfg\gfx_gl_fast.cfg 
-  Rename $INSTDIR\fortress-one-cfgs-master\fortress\cfg\gfx_gl_higheyecandy.cfg $INSTDIR\fortress\cfg\gfx_gl_higheyecandy.cfg 
+  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\bindings.cfg $INSTDIR\fortress\cfg\bindings.cfg 
+  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\hud.cfg $INSTDIR\fortress\cfg\hud.cfg 
+  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\crosshair.cfg $INSTDIR\fortress\cfg\crosshair.cfg 
+  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\gfx_gl_eyecandy.cfg $INSTDIR\fortress\cfg\gfx_gl_eyecandy.cfg 
+  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\gfx_gl_faithful.cfg $INSTDIR\fortress\cfg\gfx_gl_faithful.cfg 
+  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\gfx_gl_fast.cfg $INSTDIR\fortress\cfg\gfx_gl_fast.cfg 
+  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\gfx_gl_higheyecandy.cfg $INSTDIR\fortress\cfg\gfx_gl_higheyecandy.cfg 
 
-  RMDir /r "$INSTDIR\fortress-one-cfgs-master"
+  createDirectory $INSTDIR\ezquake\configs
+  Rename $TEMP\fortress-one-cfgs-master\ezquake\configs\config.cfg $INSTDIR\ezquake\configs\config.cfg
+
+  RMDir /r "$TEMP\fortress-one-cfgs-master"
 
   # Uninstaller - See function un.onInit and section "uninstall" for configuration
   writeUninstaller "$INSTDIR\uninstall.exe"
