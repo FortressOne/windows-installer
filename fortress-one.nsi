@@ -3,9 +3,7 @@
 !define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
 !define VERSIONMAJOR 0
 !define VERSIONMINOR 1
-!define VERSIONBUILD 7
-
-RequestExecutionLevel admin
+!define VERSIONBUILD 8
 
 InstallDir "$LOCALAPPDATA\${APPNAME}"
 
@@ -17,21 +15,6 @@ outFile "fortress-one-installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.
 
 page directory
 Page instfiles
-
-!macro VerifyUserIsAdmin
-  UserInfo::GetAccountType
-  pop $0
-  ${If} $0 != "admin" ;Require admin rights on NT4+
-    messageBox mb_iconstop "Administrator rights required!"
-    setErrorLevel 740 ;ERROR_ELEVATION_REQUIRED
-    quit
-  ${EndIf}
-!macroend
-
-function .onInit
-  setShellVarContext all
-  !insertmacro VerifyUserIsAdmin
-functionEnd
 
 section "install"
   setOutPath $INSTDIR
@@ -103,13 +86,10 @@ sectionEnd
 # Uninstaller
 
 function un.onInit
-  SetShellVarContext all
-
   #Verify the uninstaller - last chance to back out
   MessageBox MB_OKCANCEL "Permanantly remove ${APPNAME}?" IDOK next
     Abort
   next:
-  !insertmacro VerifyUserIsAdmin
 functionEnd
 
 section "uninstall"
