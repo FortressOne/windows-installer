@@ -7,7 +7,7 @@
 
 RequestExecutionLevel admin
 
-InstallDir "$PROGRAMFILES\${APPNAME}"
+InstallDir "$LOCALAPPDATA\${APPNAME}"
 
 Name "${APPNAME}"
 Icon "logo.ico"
