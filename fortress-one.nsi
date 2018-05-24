@@ -3,7 +3,7 @@
 !define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
 !define VERSIONMAJOR 0
 !define VERSIONMINOR 1
-!define VERSIONBUILD 8
+!define VERSIONBUILD 9
 
 InstallDir "$LOCALAPPDATA\${APPNAME}"
 
@@ -23,22 +23,22 @@ section "install"
   File logo.ico
 
   ; get ezQuake 3.0
-  inetc::get https://github.com/ezquake/ezquake-source/releases/download/v3.0/ezquake_win32_3.0-full.zip $EXEDIR\ezquake_win32_3.0-full.zip
-  nsisunz::Unzip $EXEDIR\ezquake_win32_3.0-full.zip $INSTDIR
+  inetc::get https://github.com/ezquake/ezquake-source/releases/download/v3.0/ezquake_win32_3.0-full.zip $TEMP\ezquake_win32_3.0-full.zip
+  nsisunz::Unzip $TEMP\ezquake_win32_3.0-full.zip $INSTDIR
 
   ; get ezQuake 3.1 daily
-  inetc::get http://uttergrottan.localghost.net/ezquake/dev/nightlybuilds/win32/2018-05-19-7569279-ezquake.7z $EXEDIR\2018-05-19-7569279-ezquake.7z
-  Nsis7z::Extract $EXEDIR\2018-05-19-7569279-ezquake.7z
+  inetc::get http://uttergrottan.localghost.net/ezquake/dev/nightlybuilds/win32/2018-05-19-7569279-ezquake.7z $TEMP\2018-05-19-7569279-ezquake.7z
+  Nsis7z::Extract $TEMP\2018-05-19-7569279-ezquake.7z
   Delete $INSTDIR\ezquake.exe
   Rename $INSTDIR\ezquake-7569279.exe $INSTDIR\ezquake.exe
 
   ; get gfx files
-  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/fortress-one-gfx.zip $EXEDIR\fortress-one-gfx.zip
-  nsisunz::Unzip $EXEDIR\fortress-one-gfx.zip $INSTDIR
+  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/fortress-one-gfx.zip $TEMP\fortress-one-gfx.zip
+  nsisunz::Unzip $TEMP\fortress-one-gfx.zip $INSTDIR
 
   ; get paks
-  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/paks.zip $EXEDIR\paks.zip
-  nsisunz::Unzip $EXEDIR\paks.zip $INSTDIR
+  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/paks.zip $TEMP\paks.zip
+  nsisunz::Unzip $TEMP\paks.zip $INSTDIR
 
   ; get minimum cfgs
   inetc::get https://github.com/drzel/fortress-one-cfgs/archive/master.zip $TEMP\fortress-one-cfgs-master.zip
