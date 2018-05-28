@@ -3,7 +3,7 @@
 !define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
 !define VERSIONMAJOR 0
 !define VERSIONMINOR 1
-!define VERSIONBUILD 9
+!define VERSIONBUILD 10
 
 InstallDir "$LOCALAPPDATA\${APPNAME}"
 
@@ -47,7 +47,8 @@ section "install"
   Rename $TEMP\fortress-one-cfgs-master\fortress\autoexec.cfg $INSTDIR\fortress\autoexec.cfg
 
   createDirectory $INSTDIR\fortress\cfg
-  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\bindings.cfg $INSTDIR\fortress\cfg\bindings.cfg 
+  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\tf2_bindings.cfg $INSTDIR\fortress\cfg\tf2_bindings.cfg 
+  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\zeltf_bindings.cfg $INSTDIR\fortress\cfg\zeltf_bindings.cfg 
   Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\hud.cfg $INSTDIR\fortress\cfg\hud.cfg 
   Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\crosshair.cfg $INSTDIR\fortress\cfg\crosshair.cfg 
   Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\gfx_gl_eyecandy.cfg $INSTDIR\fortress\cfg\gfx_gl_eyecandy.cfg 
