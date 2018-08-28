@@ -24,7 +24,7 @@ section "install"
 
   ; get ezQuake 3.1
   inetc::get https://github.com/ezQuake/ezquake-source/releases/download/3.1/ezquake-3.1-win32-full.zip $TEMP\ezquake-3.1-win32-full.zip
-  nsisunz::Unzip $TEMP\ezquake-3.1-win32-full.zip
+  nsisunz::Unzip $TEMP\ezquake-3.1-win32-full.zip $INSTDIR
 
   ; get ezQuake daily
   ; inetc::get http://uttergrottan.localghost.net/ezquake/dev/nightlybuilds/win32/2018-05-19-7569279-ezquake.7z $TEMP\2018-05-19-7569279-ezquake.7z
