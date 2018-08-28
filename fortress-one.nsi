@@ -2,8 +2,8 @@
 !define ORGNAME "The FortressOne Team"
 !define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
 !define VERSIONMAJOR 0
-!define VERSIONMINOR 1
-!define VERSIONBUILD 10
+!define VERSIONMINOR 2
+!define VERSIONBUILD 0
 
 InstallDir "$LOCALAPPDATA\${APPNAME}"
 
@@ -22,15 +22,15 @@ section "install"
   ; Copy icon
   File logo.ico
 
-  ; get ezQuake 3.0
-  inetc::get https://github.com/ezquake/ezquake-source/releases/download/v3.0/ezquake_win32_3.0-full.zip $TEMP\ezquake_win32_3.0-full.zip
-  nsisunz::Unzip $TEMP\ezquake_win32_3.0-full.zip $INSTDIR
+  ; get ezQuake 3.1
+  inetc::get https://github.com/ezQuake/ezquake-source/releases/download/3.1/ezquake-3.1-win32-full.zip $TEMP\ezquake-3.1-win32-full.zip
+  nsisunz::Unzip $TEMP\ezquake-3.1-win32-full.zip
 
-  ; get ezQuake 3.1 daily
-  inetc::get http://uttergrottan.localghost.net/ezquake/dev/nightlybuilds/win32/2018-05-19-7569279-ezquake.7z $TEMP\2018-05-19-7569279-ezquake.7z
-  Nsis7z::Extract $TEMP\2018-05-19-7569279-ezquake.7z
-  Delete $INSTDIR\ezquake.exe
-  Rename $INSTDIR\ezquake-7569279.exe $INSTDIR\ezquake.exe
+  ; get ezQuake daily
+  ; inetc::get http://uttergrottan.localghost.net/ezquake/dev/nightlybuilds/win32/2018-05-19-7569279-ezquake.7z $TEMP\2018-05-19-7569279-ezquake.7z
+  ; Nsis7z::Extract $TEMP\2018-05-19-7569279-ezquake.7z
+  ; Delete $INSTDIR\ezquake.exe
+  ; Rename $INSTDIR\ezquake-7569279.exe $INSTDIR\ezquake.exe
 
   ; get gfx files
   inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/fortress-one-gfx.zip $TEMP\fortress-one-gfx.zip
@@ -89,7 +89,7 @@ sectionEnd
 function un.onInit
   #Verify the uninstaller - last chance to back out
   MessageBox MB_OKCANCEL "Permanantly remove ${APPNAME}?" IDOK next
-    Abort
+  Abort
   next:
 functionEnd
 
