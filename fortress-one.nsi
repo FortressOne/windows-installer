@@ -32,13 +32,16 @@ section "install"
   ; Delete $INSTDIR\ezquake.exe
   ; Rename $INSTDIR\ezquake-7569279.exe $INSTDIR\ezquake.exe
 
+  ; get shareware Quake pak0.pak
+  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/paks/id1/pak0.pak $INSTDIR\id1\pak0.pak
+
+  ; get fortressone pak0.pak
+  createDirectory $INSTDIR\fortress
+  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/paks/fortress/pak0.pak $INSTDIR\fortress\pak0.pak
+
   ; get gfx files
   inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/fortress-one-gfx.zip $TEMP\fortress-one-gfx.zip
   nsisunz::Unzip $TEMP\fortress-one-gfx.zip $INSTDIR
-
-  ; get paks
-  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/paks.zip $TEMP\paks.zip
-  nsisunz::Unzip $TEMP\paks.zip $INSTDIR
 
   ; get minimum cfgs
   inetc::get https://github.com/drzel/fortress-one-cfgs/archive/master.zip $TEMP\fortress-one-cfgs-master.zip
@@ -55,6 +58,8 @@ section "install"
   Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\gfx_gl_faithful.cfg $INSTDIR\fortress\cfg\gfx_gl_faithful.cfg 
   Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\gfx_gl_fast.cfg $INSTDIR\fortress\cfg\gfx_gl_fast.cfg 
   Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\gfx_gl_higheyecandy.cfg $INSTDIR\fortress\cfg\gfx_gl_higheyecandy.cfg 
+  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\set_compatibility_aliases.cfg $INSTDIR\fortress\cfg\set_compatibility_aliases.cfg
+  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\unset_compatibility_aliases.cfg $INSTDIR\fortress\cfg\unset_compatibility_aliases.cfg
 
   createDirectory $INSTDIR\ezquake\configs
   Rename $TEMP\fortress-one-cfgs-master\ezquake\configs\config.cfg $INSTDIR\ezquake\configs\config.cfg
