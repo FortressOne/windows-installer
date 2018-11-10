@@ -2,14 +2,14 @@
 !define ORGNAME "The FortressOne Team"
 !define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
 !define VERSIONMAJOR 0
-!define VERSIONMINOR 2
-!define VERSIONBUILD 1
+!define VERSIONMINOR 3
+!define VERSIONBUILD 0
 
 InstallDir "$LOCALAPPDATA\${APPNAME}"
 
 Name "${APPNAME}"
 Icon "logo.ico"
-outFile "fortress-one-installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.exe"
+outFile "fortressone-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.exe"
 
 !include LogicLib.nsh
 
@@ -22,26 +22,29 @@ section "install"
   ; Copy icon
   File logo.ico
 
-  ; get ezQuake 3.1
-  inetc::get https://github.com/ezQuake/ezquake-source/releases/download/3.1/ezquake-3.1-win32-full.zip $TEMP\ezquake-3.1-win32-full.zip
-  nsisunz::Unzip $TEMP\ezquake-3.1-win32-full.zip $INSTDIR
+  ; get FortressOne client 3.1
+  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.1.0/fortressone.exe $TEMP\fortressone.exe
+  Rename $TEMP\fortressone.exe $INSTDIR\fortressone.exe
+  createDirectory $INSTDIR\ezquake
+  createDirectory $INSTDIR\id1
+  createDirectory $INSTDIR\fortress
 
-  ; get ezQuake daily
-  ; inetc::get http://uttergrottan.localghost.net/ezquake/dev/nightlybuilds/win32/2018-05-19-7569279-ezquake.7z $TEMP\2018-05-19-7569279-ezquake.7z
-  ; Nsis7z::Extract $TEMP\2018-05-19-7569279-ezquake.7z
-  ; Delete $INSTDIR\ezquake.exe
-  ; Rename $INSTDIR\ezquake-7569279.exe $INSTDIR\ezquake.exe
+  ; get fragfile.dat
+  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.1.0/fragfile.dat $TEMP\fragfile.dat
+  CopyFiles $TEMP\fragfile.dat $INSTDIR\fortress
+
+  ; get server browser sources
+  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.1.0/sb.zip $TEMP\sb.zip
+  nsisunz::Unzip $TEMP\sb.zip $INSTDIR\ezquake
+
+  ;get FortressOne client media files
+  inetc::get https://github.com/FortressOne/ezquake-media/releases/download/v1.0.0/fortressone.pk3 $INSTDIR\fortress\fortressone.pk3
 
   ; get shareware Quake pak0.pak
   inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/paks/id1/pak0.pak $INSTDIR\id1\pak0.pak
 
-  ; get fortressone pak0.pak
-  createDirectory $INSTDIR\fortress
-  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/paks/fortress/pak0.pak $INSTDIR\fortress\pak0.pak
-
-  ; get gfx files
-  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/fortress-one-gfx.zip $TEMP\fortress-one-gfx.zip
-  nsisunz::Unzip $TEMP\fortress-one-gfx.zip $INSTDIR
+  ; get fortressone pak0.pk3
+  inetc::get https://github.com/FortressOne/assets/releases/download/1.0.0/pak0.pk3 $INSTDIR\fortress\pak0.pk3
 
   ; get minimum cfgs
   inetc::get https://github.com/drzel/fortress-one-cfgs/archive/master.zip $TEMP\fortress-one-cfgs-master.zip
