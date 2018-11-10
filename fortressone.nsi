@@ -73,8 +73,8 @@ section "install"
   writeUninstaller "$INSTDIR\uninstall.exe"
 
   # Start Menu
-  CreateShortCut "$SMPROGRAMS\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress" "$INSTDIR\logo.ico"
-  CreateShortCut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\ezquake.exe" "-game fortress" "$INSTDIR\logo.ico"
+  CreateShortCut "$SMPROGRAMS\${APPNAME}.lnk" "$INSTDIR\fortressone.exe" "$INSTDIR\logo.ico"
+  CreateShortCut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\fortressone.exe" "$INSTDIR\logo.ico"
 
   # Registry information for add/remove programs
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
