@@ -3,7 +3,7 @@
 !define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
 !define VERSIONMAJOR 0
 !define VERSIONMINOR 3
-!define VERSIONBUILD 0
+!define VERSIONBUILD 1
 
 InstallDir "$LOCALAPPDATA\${APPNAME}"
 
