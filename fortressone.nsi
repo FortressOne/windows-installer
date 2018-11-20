@@ -1,15 +1,15 @@
 !define APPNAME "FortressOne"
 !define ORGNAME "The FortressOne Team"
 !define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
-!define VERSIONMAJOR 0
-!define VERSIONMINOR 3
-!define VERSIONBUILD 1
+!define VERSIONMAJOR 1
+!define VERSIONMINOR 0
+!define VERSIONBUILD 0
 
 InstallDir "$LOCALAPPDATA\${APPNAME}"
 
 Name "${APPNAME}"
 Icon "logo.ico"
-outFile "fortressone-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.exe"
+outFile "fortressone-windows-installer-${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.exe"
 
 !include LogicLib.nsh
 
@@ -19,22 +19,22 @@ Page instfiles
 section "install"
   setOutPath $INSTDIR
 
-  ; Copy icon
+  ; copy icon
   File logo.ico
 
-  ; get FortressOne client 3.1
-  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.1.0/fortressone.exe $TEMP\fortressone.exe
-  Rename $TEMP\fortressone.exe $INSTDIR\fortressone.exe
+  ; build directories
   createDirectory $INSTDIR\ezquake
   createDirectory $INSTDIR\id1
   createDirectory $INSTDIR\fortress
 
+  ; get FortressOne client 3.1
+  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.1/fortressone.exe $INSTDIR\fortressone.exe
+
   ; get fragfile.dat
-  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.1.0/fragfile.dat $TEMP\fragfile.dat
-  CopyFiles $TEMP\fragfile.dat $INSTDIR\fortress
+  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.1/fragfile.dat $INSTDIR\fortress\fragfile.dat
 
   ; get server browser sources
-  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.1.0/sb.zip $TEMP\sb.zip
+  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.1/sb.zip $TEMP\sb.zip
   nsisunz::Unzip $TEMP\sb.zip $INSTDIR\ezquake
 
   ;get FortressOne client media files
@@ -47,7 +47,7 @@ section "install"
   inetc::get https://github.com/FortressOne/assets/releases/download/1.0.0/pak0.pk3 $INSTDIR\fortress\pak0.pk3
 
   ; get minimum cfgs
-  inetc::get https://github.com/drzel/client-configs/archive/master.zip $TEMP\client-configs-master.zip
+  inetc::get https://github.com/FortressOne/client-configs/archive/master.zip $TEMP\client-configs-master.zip
   nsisunz::Unzip $TEMP\client-configs-master.zip $TEMP
 
   Rename $TEMP\client-configs-master\fortress\autoexec.cfg $INSTDIR\fortress\autoexec.cfg
