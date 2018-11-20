@@ -47,27 +47,27 @@ section "install"
   inetc::get https://github.com/FortressOne/assets/releases/download/1.0.0/pak0.pk3 $INSTDIR\fortress\pak0.pk3
 
   ; get minimum cfgs
-  inetc::get https://github.com/drzel/fortress-one-cfgs/archive/master.zip $TEMP\fortress-one-cfgs-master.zip
-  nsisunz::Unzip $TEMP\fortress-one-cfgs-master.zip $TEMP
+  inetc::get https://github.com/drzel/client-configs/archive/master.zip $TEMP\client-configs-master.zip
+  nsisunz::Unzip $TEMP\client-configs-master.zip $TEMP
 
-  Rename $TEMP\fortress-one-cfgs-master\fortress\autoexec.cfg $INSTDIR\fortress\autoexec.cfg
+  Rename $TEMP\client-configs-master\fortress\autoexec.cfg $INSTDIR\fortress\autoexec.cfg
 
   createDirectory $INSTDIR\fortress\cfg
-  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\tf2_bindings.cfg $INSTDIR\fortress\cfg\tf2_bindings.cfg 
-  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\zeltf_bindings.cfg $INSTDIR\fortress\cfg\zeltf_bindings.cfg 
-  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\hud.cfg $INSTDIR\fortress\cfg\hud.cfg 
-  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\crosshair.cfg $INSTDIR\fortress\cfg\crosshair.cfg 
-  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\gfx_gl_eyecandy.cfg $INSTDIR\fortress\cfg\gfx_gl_eyecandy.cfg 
-  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\gfx_gl_faithful.cfg $INSTDIR\fortress\cfg\gfx_gl_faithful.cfg 
-  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\gfx_gl_fast.cfg $INSTDIR\fortress\cfg\gfx_gl_fast.cfg 
-  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\gfx_gl_higheyecandy.cfg $INSTDIR\fortress\cfg\gfx_gl_higheyecandy.cfg 
-  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\set_compatibility_aliases.cfg $INSTDIR\fortress\cfg\set_compatibility_aliases.cfg
-  Rename $TEMP\fortress-one-cfgs-master\fortress\cfg\unset_compatibility_aliases.cfg $INSTDIR\fortress\cfg\unset_compatibility_aliases.cfg
+  Rename $TEMP\client-configs-master\fortress\cfg\tf2_bindings.cfg $INSTDIR\fortress\cfg\tf2_bindings.cfg 
+  Rename $TEMP\client-configs-master\fortress\cfg\zeltf_bindings.cfg $INSTDIR\fortress\cfg\zeltf_bindings.cfg 
+  Rename $TEMP\client-configs-master\fortress\cfg\hud.cfg $INSTDIR\fortress\cfg\hud.cfg 
+  Rename $TEMP\client-configs-master\fortress\cfg\crosshair.cfg $INSTDIR\fortress\cfg\crosshair.cfg 
+  Rename $TEMP\client-configs-master\fortress\cfg\gfx_gl_eyecandy.cfg $INSTDIR\fortress\cfg\gfx_gl_eyecandy.cfg 
+  Rename $TEMP\client-configs-master\fortress\cfg\gfx_gl_faithful.cfg $INSTDIR\fortress\cfg\gfx_gl_faithful.cfg 
+  Rename $TEMP\client-configs-master\fortress\cfg\gfx_gl_fast.cfg $INSTDIR\fortress\cfg\gfx_gl_fast.cfg 
+  Rename $TEMP\client-configs-master\fortress\cfg\gfx_gl_higheyecandy.cfg $INSTDIR\fortress\cfg\gfx_gl_higheyecandy.cfg 
+  Rename $TEMP\client-configs-master\fortress\cfg\set_compatibility_aliases.cfg $INSTDIR\fortress\cfg\set_compatibility_aliases.cfg
+  Rename $TEMP\client-configs-master\fortress\cfg\unset_compatibility_aliases.cfg $INSTDIR\fortress\cfg\unset_compatibility_aliases.cfg
 
   createDirectory $INSTDIR\ezquake\configs
-  Rename $TEMP\fortress-one-cfgs-master\ezquake\configs\config.cfg $INSTDIR\ezquake\configs\config.cfg
+  Rename $TEMP\client-configs-master\ezquake\configs\config.cfg $INSTDIR\ezquake\configs\config.cfg
 
-  RMDir /r "$TEMP\fortress-one-cfgs-master"
+  RMDir /r "$TEMP\client-configs-master"
 
   # Uninstaller - See function un.onInit and section "uninstall" for configuration
   writeUninstaller "$INSTDIR\uninstall.exe"
