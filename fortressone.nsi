@@ -1,6 +1,6 @@
 !define APPNAME "FortressOne"
 !define ORGNAME "The FortressOne Team"
-!define DESCRIPTION "A minimal QuakeWorld Team Fortress installation"
+!define DESCRIPTION "QuakeWorld Team Fortress package for Windows"
 !define VERSIONMAJOR 1
 !define VERSIONMINOR 0
 !define VERSIONBUILD 0
