@@ -3,7 +3,7 @@
 !define DESCRIPTION "QuakeWorld Team Fortress package for Windows"
 !define VERSIONMAJOR 1
 !define VERSIONMINOR 0
-!define VERSIONBUILD 0
+!define VERSIONBUILD 1
 
 InstallDir "$LOCALAPPDATA\${APPNAME}"
 
@@ -41,7 +41,7 @@ section "install"
   inetc::get https://github.com/FortressOne/ezquake-media/releases/download/v1.0.0/fortressone.pk3 $INSTDIR\fortress\fortressone.pk3
 
   ; get shareware Quake pak0.pak
-  inetc::get https://s3-ap-southeast-2.amazonaws.com/qwtf/paks/id1/pak0.pak $INSTDIR\id1\pak0.pak
+  inetc::get https://www.mirafiori.com/ftp/pub/gaming/pak0.pak $INSTDIR\id1\pak0.pak
 
   ; get fortressone pak0.pk3
   inetc::get https://github.com/FortressOne/assets/releases/download/1.0.0/pak0.pk3 $INSTDIR\fortress\pak0.pk3
