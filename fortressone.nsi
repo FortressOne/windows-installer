@@ -3,7 +3,7 @@
 !define DESCRIPTION "QuakeWorld Team Fortress package for Windows"
 !define VERSIONMAJOR 1
 !define VERSIONMINOR 0
-!define VERSIONBUILD 3
+!define VERSIONBUILD 4
 
 InstallDir "$LOCALAPPDATA\${APPNAME}"
 
@@ -27,14 +27,14 @@ section "install"
   createDirectory $INSTDIR\id1
   createDirectory $INSTDIR\fortress
 
-  ; get FortressOne client 3.2.1
-  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.2.1/fortressone.exe $INSTDIR\fortressone.exe
+  ; get FortressOne client 3.2.1.1
+  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.2.1.1/fortressone.exe $INSTDIR\fortressone.exe
 
   ; get fragfile.dat
-  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.2.1/fragfile.dat $INSTDIR\fortress\fragfile.dat
+  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.2.1.1/fragfile.dat $INSTDIR\fortress\fragfile.dat
 
   ; get server browser sources
-  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.2.1/sb.zip $TEMP\sb.zip
+  inetc::get https://github.com/FortressOne/ezquake-source/releases/download/v3.2.1.1/sb.zip $TEMP\sb.zip
   nsisunz::Unzip $TEMP\sb.zip $INSTDIR\ezquake
 
   ;get FortressOne client media files
